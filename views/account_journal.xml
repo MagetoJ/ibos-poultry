@@ -1,0 +1,12 @@
+<odoo>
+<record id="account_journal_form_view_inherit_poultry" model="ir.ui.view">
+        <field name="name">account.journal.form.inherit.poultry</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="is_poultry_processing_journal"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

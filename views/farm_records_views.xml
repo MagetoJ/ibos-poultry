@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Farm Employee Views -->
+    <record id="farm_employee_list_view" model="ir.ui.view">
+        <field name="name">farm.employee.list</field>
+        <field name="model">farm.employee</field>
+        <field name="arch" type="xml">
+            <list string="Employees">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="role"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="date_hired"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="farm_employee_form_view" model="ir.ui.view">
+        <field name="name">farm.employee.form</field>
+        <field name="model">farm.employee</field>
+        <field name="arch" type="xml">
+            <form string="Farm Employee">
+                <header>
+                    <button name="action_create_employee" 
+                            string="Create HR Employee" 
+                            type="object" 
+                            class="oe_highlight"
+                            invisible="hr_employee_id != False"
+                            help="Create an employee record in HR module"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_employee" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-user"
+                                invisible="employee_count == 0">
+                            <field name="employee_count" widget="statinfo" string="Related Employee"/>
+                        </button>
+                        <button name="action_view_location" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-home"
+                                invisible="poultry_location_id == False">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Assigned</span>
+                                <span class="o_stat_text">Location</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Employee Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hr_employee_id"/>
+                            <field name="employee_id"/>
+                            <field name="role"/>
+                            <field name="date_hired"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                    </group>
+                    <group string="Assigned Location">
+                        <field name="poultry_location_id"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Additional notes..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="farm_employee_action" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">farm.employee</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Feed Schedule Views -->
+    <record id="feed_schedule_list_view" model="ir.ui.view">
+        <field name="name">feed.schedule.list</field>
+        <field name="model">feed.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Feed Schedules">
+                <field name="name"/>
+                <field name="bird_type"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="feed_schedule_form_view" model="ir.ui.view">
+        <field name="name">feed.schedule.form</field>
+        <field name="model">feed.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Feed Schedule">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g., HW Schedule, PR Schedule"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bird_type"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule Lines" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="age_from"/>
+                                    <field name="age_to"/>
+                                    <field name="feed_product_id"/>
+                                    <field name="quantity_per_bird"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1" placeholder="General notes about this feeding schedule..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="feed_schedule_action" model="ir.actions.act_window">
+        <field name="name">Feed Schedules</field>
+        <field name="res_model">feed.schedule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Vaccination Schedule Views -->
+    <record id="vaccination_schedule_list_view" model="ir.ui.view">
+        <field name="name">vaccination.schedule.list</field>
+        <field name="model">vaccination.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Vaccination Schedules">
+                <field name="name"/>
+                <field name="bird_type"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="vaccination_schedule_form_view" model="ir.ui.view">
+        <field name="name">vaccination.schedule.form</field>
+        <field name="model">vaccination.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Vaccination Schedule">
+                <!-- <header>
+                    <button name="scrap_partially_consumed_batches" type="object" string="Scrap Partially Consumed Batches" class="oe_highlight"/>
+                </header> -->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="bird_type"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="partially_consumed_batch_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="age_from"/>
+                                    <field name="age_to"/>
+                                    <field name="vaccine_product_id" domain="[('poultry_product_type', '=', 'medicine')]"/>
+                                    <field name="quantity_per_bird"/>
+                                    <field name="frequency"/>
+                                    <field name="lot_id"/>
+                                    <field name="purpose"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="General notes about this vaccination schedule..."/>
+                    </group>
+                </sheet>
+            <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="vaccination_schedule_action" model="ir.actions.act_window">
+        <field name="name">Vaccination Schedules</field>
+        <field name="res_model">vaccination.schedule</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first vaccination schedule
+            </p>
+            <p>
+                Define vaccination/medicine schedules for different flock types
+            </p>
+        </field>
+    </record>
+
+    <!-- Mortality Schedule Views -->
+    <record id="mortality_schedule_list_view" model="ir.ui.view">
+        <field name="name">mortality.schedule.list</field>
+        <field name="model">mortality.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Mortality Schedules">
+                <field name="name"/>
+                <field name="bird_type"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="mortality_schedule_form_view" model="ir.ui.view">
+        <field name="name">mortality.schedule.form</field>
+        <field name="model">mortality.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Mortality Schedule">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g., HW Mortality Schedule, PR Mortality Schedule"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bird_type"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule Lines" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="age_from"/>
+                                    <field name="age_to"/>
+                                    <field name="mortality_rate"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1" placeholder="General notes about this mortality schedule..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="mortality_schedule_action" model="ir.actions.act_window">
+        <field name="name">Mortality Schedules</field>
+        <field name="res_model">mortality.schedule</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first mortality schedule
+            </p>
+            <p>
+                Define expected mortality schedules for different flock types
+            </p>
+        </field>
+    </record>
+
+    <!-- Weight Schedule Views -->
+    <record id="weight_schedule_list_view" model="ir.ui.view">
+        <field name="name">weight.schedule.list</field>
+        <field name="model">weight.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Weight Schedules">
+                <field name="name"/>
+                <field name="bird_type"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="weight_schedule_form_view" model="ir.ui.view">
+        <field name="name">weight.schedule.form</field>
+        <field name="model">weight.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Weight Schedule">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g., HW Weight Schedule, PR Weight Schedule"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bird_type"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule Lines" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="age_from"/>
+                                    <field name="age_to"/>
+                                    <field name="expected_weight"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1" placeholder="General notes about this weight schedule..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="weight_schedule_action" model="ir.actions.act_window">
+        <field name="name">Weight Schedules</field>
+        <field name="res_model">weight.schedule</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first weight schedule
+            </p>
+            <p>
+                Define expected weight schedules for different flock types
+            </p>
+        </field>
+    </record>
+
+    <!-- Cleaning Schedule Views -->
+    <record id="cleaning_schedule_list_view" model="ir.ui.view">
+        <field name="name">cleaning.schedule.list</field>
+        <field name="model">cleaning.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Cleaning Schedules">
+                <field name="name"/>
+                <field name="area_type"/>
+                <field name="location_id"/>
+                <field name="frequency"/>
+                <field name="cleaning_type"/>
+                <field name="responsible_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="cleaning_schedule_form_view" model="ir.ui.view">
+        <field name="name">cleaning.schedule.form</field>
+        <field name="model">cleaning.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Cleaning Schedule">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Task Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="area_type"/>
+                            <field name="location_id"/>
+                            <field name="frequency"/>
+                            <field name="day_of_week" invisible="frequency not in ['weekly', 'biweekly']"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="cleaning_type"/>
+                            <field name="responsible_id"/>
+                            <field name="estimated_duration"/>
+                        </group>
+                    </group>
+                    <group string="Products/Supplies Required">
+                        <field name="products_required" nolabel="1" placeholder="List cleaning products and supplies..."/>
+                    </group>
+                    <group string="Instructions">
+                        <field name="instructions" nolabel="1" placeholder="Detailed cleaning instructions..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cleaning_schedule_action" model="ir.actions.act_window">
+        <field name="name">Cleaning Schedules</field>
+        <field name="res_model">cleaning.schedule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Farm Equipment Views -->
+    <record id="farm_equipment_list_view" model="ir.ui.view">
+        <field name="name">farm.equipment.list</field>
+        <field name="model">farm.equipment</field>
+        <field name="arch" type="xml">
+            <list string="Equipment">
+                <field name="name"/>
+                <field name="equipment_type"/>
+                <field name="location_id"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'working'"
+                       decoration-warning="status == 'maintenance'"
+                       decoration-danger="status == 'broken'"
+                       decoration-muted="status == 'retired'"/>
+                <field name="last_maintenance_date"/>
+                <field name="next_maintenance_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="farm_equipment_form_view" model="ir.ui.view">
+        <field name="name">farm.equipment.form</field>
+        <field name="model">farm.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Farm Equipment">
+                <header>
+                    <button name="action_create_asset" 
+                            string="Create Asset" 
+                            type="object" 
+                            class="oe_highlight"
+                            invisible="asset_id != False"
+                            help="Create an asset record for depreciation tracking"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_asset" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-book"
+                                invisible="asset_count == 0">
+                            <field name="asset_count" widget="statinfo" string="Asset"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Equipment Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="equipment_type"/>
+                            <field name="location_id"/>
+                            <field name="serial_number"/>
+                            <field name="status"/>
+                            <field name="active"/>
+                            <field name="asset_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="purchase_date"/>
+                            <field name="purchase_cost" widget="monetary"/>
+                            <field name="supplier_id"/>
+                        </group>
+                    </group>
+                    <group string="Maintenance">
+                        <group>
+                            <field name="last_maintenance_date"/>
+                            <field name="next_maintenance_date"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Additional notes..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="farm_equipment_action" model="ir.actions.act_window">
+        <field name="name">Equipment &amp; Assets</field>
+        <field name="res_model">farm.equipment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

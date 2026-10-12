@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Poultry Menu -->
+    <menuitem id="menu_poultry_root"
+              name="Poultry"
+              sequence="10"
+              web_icon="ibos_poultry,static/description/icon.png"/>
+    
+     <!-- Main Dashboard Menu -->
+    <menuitem id="menu_poultry_dashboard"
+              name="Dashboard"
+              parent="menu_poultry_root"
+              action="poultry_dashboard_action"
+              sequence="1"/>
+
+    <!-- Operations Menu -->
+    <menuitem id="menu_poultry_operations"
+              name="Brooding Phase"
+              parent="menu_poultry_root"
+              sequence="10"/>
+
+    <!-- Growth Tracking Menu -->
+    <menuitem id="menu_poultry_growth_tracking"
+              name="Grow Out Phase"
+              parent="menu_poultry_root"
+              sequence="20"/>
+
+    <!-- Slaughter Records Menu -->
+    <menuitem id="menu_poultry_slaughter"
+              name="Slaughter Records"
+              parent="menu_poultry_root"
+              action="poultry_slaughter_action"
+              sequence="30"/>
+
+    <!-- Poultry Processing Orders Menu -->
+    <menuitem id="menu_poultry_processing"
+              name="Processing Orders"
+              parent="menu_poultry_root"
+              action="mrp_production_poultry_action"
+              sequence="25"/>
+
+    <!-- Flocks Menu -->
+    <menuitem id="menu_poultry_flock"
+              name="Flock Receipts"
+              parent="menu_poultry_operations"
+              action="poultry_flock_action"
+              sequence="10"/>
+
+    <!-- Brooding Phase - Feed Records Action (Read-Only) -->
+    <record id="poultry_flock_feed_consumption_action" model="ir.actions.act_window">
+        <field name="name">Feed Records</field>
+        <field name="res_model">poultry.feed.consumption</field>
+        <field name="view_mode">graph,list,form</field>
+        <field name="domain">[('flock_id', '!=', False), ('growth_tracking_id', '=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!-- Brooding Phase - Medicine Usage Action (Read-Only) -->
+    <record id="poultry_flock_medicine_usage_action" model="ir.actions.act_window">
+        <field name="name">Medicine Records</field>
+        <field name="res_model">poultry.medicine.usage</field>
+        <field name="view_mode">graph,list,form</field>
+        <field name="domain">[('flock_id', '!=', False), ('growth_tracking_id', '=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!-- Brooding Phase - Weighing Action (Read-Only) -->
+    <record id="poultry_flock_weighing_action" model="ir.actions.act_window">
+        <field name="name">Weighing Records</field>
+        <field name="res_model">poultry.weighing</field>
+        <field name="view_mode">graph,list,form</field>
+        <field name="domain">[('flock_id', '!=', False), ('growth_tracking_id', '=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!-- Brooding Phase - Feed Records Menu Item -->
+    <menuitem id="menu_poultry_flock_feed_records"
+              name="Feed Records"
+              parent="menu_poultry_operations"
+              action="poultry_flock_feed_consumption_action"
+              sequence="20"/>
+
+    <!-- Brooding Phase - Medicine Records Menu Item -->
+    <menuitem id="menu_poultry_flock_medicine_records"
+              name="Medicine Records"
+              parent="menu_poultry_operations"
+              action="poultry_flock_medicine_usage_action"
+              sequence="30"/>
+
+    <!-- Brooding Phase - Weighing Records Menu Item -->
+    <menuitem id="menu_poultry_flock_weighing_records"
+              name="Weighing Records"
+              parent="menu_poultry_operations"
+              action="poultry_flock_weighing_action"
+              sequence="40"/>
+
+    <!-- Growth Tracking Records Menu -->
+    <menuitem id="menu_poultry_growth_tracking_records"
+              name="Growth Records"
+              parent="menu_poultry_growth_tracking"
+              action="poultry_growth_tracking_action"
+              sequence="10"/>
+
+    <!-- Feed Consumption Menu -->
+    <menuitem id="menu_poultry_feed_consumption"
+              name="Feed Records"
+              parent="menu_poultry_growth_tracking"
+              action="poultry_feed_consumption_action"
+              sequence="20"/>
+
+    <!-- Gas Consumption Menu -->
+    <menuitem id="menu_poultry_gas_consumption"
+              name="Gas Records"
+              parent="menu_poultry_growth_tracking"
+              action="poultry_gas_consumption_action"
+              sequence="25"/>
+
+    <!-- Reports Menu -->
+    <menuitem id="menu_poultry_reports"
+              name="Reports"
+              parent="menu_poultry_root"
+              action="poultry_reports_client_action"
+              sequence="90"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_poultry_configuration"
+              name="Configuration"
+              parent="menu_poultry_root"
+              sequence="100"/>
+
+    <record id="poultry_feed_consumption_action" model="ir.actions.act_window">
+        <field name="name">Feed Records</field>
+        <field name="res_model">poultry.growth.feed.consumption</field>
+        <field name="view_mode">graph,list,form</field>
+        <field name="domain">[('growth_tracking_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!-- Medicine Usage Action (Read-Only) -->
+    <record id="poultry_medicine_usage_action" model="ir.actions.act_window">
+        <field name="name">Medicine Records</field>
+        <field name="res_model">poultry.growth.medicine.usage</field>
+        <field name="view_mode">graph,list,form</field>
+        <field name="domain">[('growth_tracking_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!-- Weighing Action (Read-Only) -->
+    <record id="poultry_weighing_action" model="ir.actions.act_window">
+        <field name="name">Weighing Records</field>
+        <field name="res_model">poultry.weighing</field>
+        <field name="view_mode">graph,list,form</field>
+        <field name="domain">[('growth_tracking_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!-- Medicine Records Menu Item -->
+    <menuitem id="menu_poultry_medicine_records"
+              name="Medicine Records"
+              parent="menu_poultry_growth_tracking"
+              action="poultry_medicine_usage_action"
+              sequence="40"/>
+
+    <!-- Weighing Records Menu Item -->
+    <menuitem id="menu_poultry_weighing_records"
+              name="Weighing Records"
+              parent="menu_poultry_growth_tracking"
+              action="poultry_weighing_action"
+              sequence="50"/>
+
+    <!-- Locations Menu -->
+    <menuitem id="menu_poultry_location"
+              name="Locations"
+              parent="menu_poultry_configuration"
+              action="poultry_location_action"
+              sequence="10"/>
+
+    <!-- Configuration Assistant Menu -->
+    <menuitem id="menu_poultry_configuration_assist"
+              name="Configuration Assistant"
+              parent="menu_poultry_configuration"
+              action="action_poultry_configuration_assist"
+              sequence="5"/>
+
+    <!-- Stock Locations Menu
+    <menuitem id="menu_stock_locations_config"
+              name="Stock Locations"
+              parent="menu_poultry_configuration"
+              action="action_stock_locations_config"
+              sequence="8"/> -->
+
+    <!-- Farm Records Menu -->
+    <menuitem id="menu_farm_records"
+              name="Farm Records"
+              parent="menu_poultry_root"
+              sequence="40"/>
+
+    <menuitem id="menu_farm_employee"
+              name="Employees"
+              parent="menu_farm_records"
+              action="farm_employee_action"
+              sequence="10"/>
+
+    <menuitem id="menu_feed_schedule"
+              name="Feed Schedules"
+              parent="menu_farm_records"
+              action="feed_schedule_action"
+              sequence="20"/>
+
+    <menuitem id="menu_mortality_schedule"
+              name="Default Mortality Rates"
+              parent="menu_farm_records"
+              action="mortality_schedule_action"
+              sequence="25"/>
+
+    <menuitem id="menu_weight_schedule"
+              name="Weight Schedules"
+              parent="menu_farm_records"
+              action="weight_schedule_action"
+              sequence="27"/>
+
+    <menuitem id="menu_vaccination_schedule"
+              name="Vaccination Schedules"
+              parent="menu_farm_records"
+              action="vaccination_schedule_action"
+              sequence="30"/>
+
+    <menuitem id="menu_cleaning_schedule"
+              name="Cleaning Schedules"
+              parent="menu_farm_records"
+              action="cleaning_schedule_action"
+              sequence="40"/>
+
+    <menuitem id="menu_farm_equipment"
+              name="Equipment &amp; Assets"
+              parent="menu_farm_records"
+              action="farm_equipment_action"
+              sequence="50"/>
+
+    <menuitem id="menu_raw_material_on_hand"
+              name="Farm Raw Materials"
+              parent="menu_farm_records"
+              action="action_raw_material_on_hand"
+              sequence="60"/>
+</odoo>

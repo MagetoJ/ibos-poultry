@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Purchase Order Form View Inherit -->
+    <record id="purchase_order_form_view_inherit_poultry" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.poultry</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Add field after dest_address_id -->
+            <xpath expr="//field[@name='dest_address_id']" position="after">
+                <field name="is_poultry_purchase" invisible="1"/>
+                <!-- <field name="poultry_receipt_location_id" 
+                       invisible="is_poultry_purchase == False"
+                       required="is_poultry_purchase == True"/> -->
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="after">
+                <field name="price_unit_untaxed" readonly="1" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

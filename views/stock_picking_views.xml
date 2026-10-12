@@ -1,0 +1,19 @@
+<odoo>
+     <!-- Stock Picking Form View Inherit -->
+    <record id="stock_picking_form_view_inherit_poultry" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.poultry</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <field name="flock_count" invisible="1"/>
+                <button name="create_backdated_flock_from_receipt" 
+                string="Create Backdated Flock" type="object" 
+                class="btn-success" confirm="Are you sure you want to create a backdated flock?" 
+                invisible="flock_count &gt; 0 or picking_type_code != 'incoming' or not is_poultry_receipt or state != 'done'"
+                groups="base.group_system"/>
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

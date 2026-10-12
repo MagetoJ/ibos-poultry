@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Poultry Management Security Groups -->
+         <record id="group_poultry_production_overall_manager" model="res.groups">
+            <field name="name">Production Overall Manager</field>
+            <field name="category_id" ref="base.module_category_technical_settings"/>
+            <field name="comment">Production Overall Manager has full access to poultry production and slaughter operations</field>
+        </record>
+
+        <record id="group_poultry_production_manager" model="res.groups">
+            <field name="name">Production Manager</field>
+            <field name="category_id" ref="base.module_category_technical_settings"/>
+            <field name="comment">Production Manager has full access to poultry production and slaughter operations</field>
+        </record>
+
+        <record id="group_poultry_production_user" model="res.groups">
+            <field name="name">Production User</field>
+            <field name="category_id" ref="base.module_category_technical_settings"/>
+          
+            <field name="comment">Production User has limited access to poultry production and slaughter operations</field>
+        </record>
+    </data>
+</odoo>

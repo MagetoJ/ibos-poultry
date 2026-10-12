@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Main Report Template -->
+    <t t-name="ibos_poultry.PoultryReportView" owl="1">
+        <div class="o_poultry_reports">
+            <!-- Header -->
+            <div class="o_poultry_reports_header">
+                <div class="o_poultry_reports_title">
+                    <h2><t t-esc="state.report_data.report_name"/></h2>
+                </div>
+                <div class="o_poultry_reports_buttons">
+                    <button class="btn btn-primary" t-on-click="onRefresh">
+                        <i class="fa fa-refresh"/> Refresh
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="onPrint">
+                        <i class="fa fa-print"/> Print
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="onExport">
+                        <i class="fa fa-download"/> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="o_poultry_reports_filters card p-3 mb-3">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Report Type</label>
+                        <select class="form-select" t-on-change="onReportTypeChange" t-model="state.report_data.options.report_type">
+                            <option value="cost">Cost Report</option>
+                            <option value="feed">Feed Consumption</option>
+                            <option value="medicine">Medicine Usage</option>
+                            <option value="weight">Weight Tracking</option>
+                            <option value="slaughter">Slaughter Report</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Date From</label>
+                        <input type="date" 
+                               class="form-control" 
+                               t-att-value="state.report_data.options.date?.date_from"
+                               data-field="date_from"
+                               t-on-change="onDateChange"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Date To</label>
+                        <input type="date" 
+                               class="form-control" 
+                               t-att-value="state.report_data.options.date?.date_to"
+                               data-field="date_to"
+                               t-on-change="onDateChange"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Flock</label>
+                        <select class="form-select" t-on-change="onFlockChange">
+                            <option value="" t-att-selected="!state.report_data.options.flock_id">All Flocks</option>
+                            <option t-foreach="state.flocks" t-as="flock" t-key="flock.id" 
+                                    t-att-value="flock.id"
+                                    t-att-selected="state.report_data.options.flock_id === flock.id">
+                                <t t-esc="flock.name"/>
+                            </option>
+                        </select>
+                        <div class="form-check mt-1">
+                            <input class="form-check-input" type="checkbox" 
+                                   id="showClosedFlocks"
+                                   t-att-checked="state.show_closed_flocks"
+                                   t-on-change="onShowClosedFlocksChange"/>
+                            <label class="form-check-label" for="showClosedFlocks">
+                                Show closed flocks
+                            </label>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <label>Location</label>
+                        <select class="form-select" t-on-change="onLocationChange">
+                            <option value="" t-att-selected="!state.report_data.options.location_id">All Locations</option>
+                            <option t-foreach="state.locations" t-as="location" t-key="location.id" 
+                                    t-att-value="location.id"
+                                    t-att-selected="state.report_data.options.location_id === location.id">
+                                <t t-esc="location.name"/>
+                            </option>
+                        </select>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div t-if="state.loading" class="text-center p-5">
+                <i class="fa fa-spinner fa-spin fa-3x"/>
+                <p>Loading report...</p>
+            </div>
+
+            <!-- Report Table -->
+            <div t-else="" class="o_poultry_reports_table">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th t-foreach="state.report_data.columns" t-as="column" t-key="column_index" 
+                                t-att-class="column.class">
+                                <t t-esc="column.name"/>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="state.report_data.lines.length > 0">
+                            <tr t-foreach="state.report_data.lines" t-as="line" t-key="line.id"
+                                t-att-class="line.class">
+                                <td t-foreach="line.columns" t-as="col" t-key="col_index"
+                                    t-att-class="col.class">
+                                    <t t-esc="col.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <td t-att-colspan="state.report_data.columns.length" class="text-center text-muted">
+                                    No data found for the selected filters
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+
+</templates>

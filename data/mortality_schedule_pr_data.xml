@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+   
+    <!-- PR Mortality Schedule Header -->
+    <record id="mortality_schedule_pr" model="mortality.schedule">
+        <field name="name">PR Mortality</field>
+        <field name="bird_type">broiler</field>
+        <field name="notes">Ross 308 mortality schedule for broiler chickens (61-day cycle)</field>
+    </record>
+
+    <!-- PR Mortality Schedule Lines (Days 0-61) -->
+    <!-- Week 1 (Days 0-7): Higher mortality rates -->
+    <record id="mortality_schedule_pr_line_day_0" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">0</field>
+        <field name="age_to">0</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_1" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">1</field>
+        <field name="age_to">1</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_2" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">2</field>
+        <field name="age_to">2</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_3" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">3</field>
+        <field name="age_to">3</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_4" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">4</field>
+        <field name="age_to">4</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_5" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">5</field>
+        <field name="age_to">5</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_6" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">6</field>
+        <field name="age_to">6</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_7" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">7</field>
+        <field name="age_to">7</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 2 (Days 8-14): Lower mortality rates -->
+    <record id="mortality_schedule_pr_line_day_8" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">8</field>
+        <field name="age_to">8</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_9" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">9</field>
+        <field name="age_to">9</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_10" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">10</field>
+        <field name="age_to">10</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_11" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">11</field>
+        <field name="age_to">11</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_12" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">12</field>
+        <field name="age_to">12</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_13" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">13</field>
+        <field name="age_to">13</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_14" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">14</field>
+        <field name="age_to">14</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 3 (Days 15-21): Stable low mortality -->
+    <record id="mortality_schedule_pr_line_day_15" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">15</field>
+        <field name="age_to">15</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_16" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">16</field>
+        <field name="age_to">16</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_17" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">17</field>
+        <field name="age_to">17</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_18" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">18</field>
+        <field name="age_to">18</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_19" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">19</field>
+        <field name="age_to">19</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_20" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">20</field>
+        <field name="age_to">20</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_21" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">21</field>
+        <field name="age_to">21</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 4 (Days 22-28) -->
+    <record id="mortality_schedule_pr_line_day_22" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">22</field>
+        <field name="age_to">22</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_23" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">23</field>
+        <field name="age_to">23</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_24" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">24</field>
+        <field name="age_to">24</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_25" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">25</field>
+        <field name="age_to">25</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_26" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">26</field>
+        <field name="age_to">26</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_27" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">27</field>
+        <field name="age_to">27</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_28" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">28</field>
+        <field name="age_to">28</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 5 (Days 29-35) -->
+    <record id="mortality_schedule_pr_line_day_29" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">29</field>
+        <field name="age_to">29</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_30" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">30</field>
+        <field name="age_to">30</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_31" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">31</field>
+        <field name="age_to">31</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_32" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">32</field>
+        <field name="age_to">32</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_33" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">33</field>
+        <field name="age_to">33</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_34" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">34</field>
+        <field name="age_to">34</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_35" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">35</field>
+        <field name="age_to">35</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 6 (Days 36-42) -->
+    <record id="mortality_schedule_pr_line_day_36" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">36</field>
+        <field name="age_to">36</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_37" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">37</field>
+        <field name="age_to">37</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_38" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">38</field>
+        <field name="age_to">38</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_39" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">39</field>
+        <field name="age_to">39</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_40" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">40</field>
+        <field name="age_to">40</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_41" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">41</field>
+        <field name="age_to">41</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_42" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">42</field>
+        <field name="age_to">42</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 7 (Days 43-49) -->
+    <record id="mortality_schedule_pr_line_day_43" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">43</field>
+        <field name="age_to">43</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_44" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">44</field>
+        <field name="age_to">44</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_45" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">45</field>
+        <field name="age_to">45</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_46" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">46</field>
+        <field name="age_to">46</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_47" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">47</field>
+        <field name="age_to">47</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_48" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">48</field>
+        <field name="age_to">48</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_49" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">49</field>
+        <field name="age_to">49</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 8 (Days 50-56) -->
+    <record id="mortality_schedule_pr_line_day_50" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">50</field>
+        <field name="age_to">50</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_51" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">51</field>
+        <field name="age_to">51</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_52" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">52</field>
+        <field name="age_to">52</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_53" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">53</field>
+        <field name="age_to">53</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_54" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">54</field>
+        <field name="age_to">54</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_55" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">55</field>
+        <field name="age_to">55</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_56" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">56</field>
+        <field name="age_to">56</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <!-- Week 9 (Days 57-61) -->
+    <record id="mortality_schedule_pr_line_day_57" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">57</field>
+        <field name="age_to">57</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_58" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">58</field>
+        <field name="age_to">58</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_59" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">59</field>
+        <field name="age_to">59</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_60" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">60</field>
+        <field name="age_to">60</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+    <record id="mortality_schedule_pr_line_day_61" model="mortality.schedule.line">
+        <field name="schedule_id" ref="mortality_schedule_pr"/>
+        <field name="age_from">61</field>
+        <field name="age_to">61</field>
+        <field name="mortality_rate">0</field>
+    </record>
+
+</odoo>

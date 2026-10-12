@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Poultry Growth Tracking List View -->
+    <record id="poultry_growth_tracking_list_view" model="ir.ui.view">
+        <field name="name">poultry.growth.tracking.list</field>
+        <field name="model">poultry.growth.tracking</field>
+        <field name="arch" type="xml">
+            <list string="Growth Tracking" sample="1">
+                <field name="active" invisible="1"/>
+                <field name="name"/>
+                <field name="tracking_date"/>
+                <field name="batch_number"/>
+                <field name="lot_id"/>
+                <field name="poultry_location_id"/>
+                <field name="age_days"/>
+                <field name="current_quantity"/>
+                <field name="average_weight"/>
+                <field name="feed_per_bird"/>
+                <field name="fcr"/>
+                <field name="cost_per_bird" widget="monetary"/>
+                <field name="state" widget="badge" 
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'confirmed'"
+                       decoration-warning="state == 'partially_processed'"
+                       decoration-danger="state == 'slaughtered'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Poultry Growth Tracking Form View -->
+    <record id="poultry_growth_tracking_form_view" model="ir.ui.view">
+        <field name="name">poultry.growth.tracking.form</field>
+        <field name="model">poultry.growth.tracking</field>
+        <field name="arch" type="xml">
+            <form string="Growth Tracking">
+                <header>
+                    <button name="action_confirm" string="Create" 
+                            type="object" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                   
+                    <button name="action_create_processing_order" string="Create Processing Order" 
+                            type="object" class="btn-primary"
+                            invisible="not is_ready or current_quantity == 0 "/>
+                    <button name="action_process_early" string="Early Processing" 
+                            type="object" class="btn-primary"
+                            invisible="estimated_slaughter_date &lt;=  context_today().strftime('%Y-%m-%d')"/>
+                    <button name="action_update_scheduled_data" string="Update Data" 
+                            type="object" class="btn-secondary"
+                            invisible="state in ['draft','partially_processed', 'slaughtered']"
+                            confirm="This will regenerate scheduled records (feed, medicine, mortality, weighing) based on linked schedules. Existing records will not be duplicated. Continue?"/>
+                    <button name="action_reload_all_schedules" string="Reload All Schedules" 
+                            type="object" class="btn-warning"
+                            invisible="state in ['draft','partially_processed', 'slaughtered']"
+                            confirm="This will reload ALL schedule lines and create any missing records. Already processed records will not be affected or duplicated. Continue?"/>
+                    <button name="action_write_off_close" string="Write-Off Flock &amp; Close" 
+                            type="object" class="btn-danger"
+                            invisible="current_quantity != 0 or state in ['draft','confirmed', 'slaughtered'] "
+                            groups="ibos_poultry.group_poultry_production_overall_manager"
+                            confirm="This will force the flock into 'Slaughtered' status, closing the flock and preventing further updates. Use with caution. Continue?"/>
+                    <!-- <button name="action_complete_slaughter" string="Close" 
+                            type="object" class="btn-success"
+                            confirm="This will close the flock and mark it as completed. Continue?"
+                            invisible="current_quantity != 0"/> -->
+                    <!-- <button name="action_draft" string="Set to Draft" 
+                            type="object"
+                            invisible="state in ['slaughtered', 'draft']"/> -->
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,confirmed,partially_processed,slaughtered"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Closed" bg_color="text-bg-danger" 
+                            invisible="state != 'slaughtered'"/>
+                            <widget name="web_ribbon" title="Archived" invisible="active" bg_color="text-bg-danger"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_flock" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-users"
+                                invisible="not flock_id">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Flock</span>
+                                <span class="o_stat_value"><field name="batch_number"/></span>
+                            </div>
+                        </button>
+                        <button name="action_view_location" type="object" 
+                                class="oe_stat_button"
+                                invisible="not poultry_location_id or state in ['draft','slaughtered']">
+                            <field name="location_occupancy_pct" widget="percentpie" string="Location Occupancy"/>
+                        </button>
+                        <button name="action_view_mortality" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-times-circle"
+                                invisible="mortality_records_count == 0">
+                            <field name="mortality_records_count" widget="statinfo" string="Mortality"/>
+                        </button>
+                        <button name="action_view_feed" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-cutlery"
+                                invisible="feed_records_count == 0">
+                            <field name="feed_records_count" widget="statinfo" string="Feed Records"/>
+                        </button>
+                        <button name="action_view_gas" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-fire"
+                                invisible="gas_records_count == 0">
+                            <field name="gas_records_count" widget="statinfo" string="Gas Records"/>
+                        </button>
+                        <button name="action_view_medicine" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-medkit"
+                                invisible="medicine_records_count == 0">
+                            <field name="medicine_records_count" widget="statinfo" string="Vaccinations"/>
+                        </button>
+                        <button name="action_view_weighing" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-balance-scale"
+                                invisible="weighing_records_count == 0">
+                            <field name="weighing_records_count" widget="statinfo" string="Weight Records"/>
+                        </button>
+                        <button name="action_view_processing_orders" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-cogs"
+                                invisible="processing_orders_count == 0">
+                            <field name="processing_orders_count" widget="statinfo" string="Processing Records"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Flock Information">
+                            <!-- <field name="flock_id" options="{'no_create': True}"/> -->
+                              <field name="active" invisible="1"/>  
+                            <field name="batch_number"/>
+                            <field name="lot_id"/>
+                            <field name="poultry_location_id"/>
+                            <field name="estimated_slaughter_date" readonly="1"/>
+                            <field name="feed_schedule_id" options="{'no_create': True}" invisible="1"/>
+                            <field name="vaccine_schedule_id" options="{'no_create': True}" invisible="1"/>
+                            <field name="mortality_schedule_id" options="{'no_create': True}" invisible="1"/>
+                            <field name="weight_schedule_id" options="{'no_create': True}" invisible="1"/>
+                        </group>
+                        <group string="Bird Count">
+                            <field name="initial_quantity"/>
+                            <field name="current_quantity" readonly="1"/>
+                            <field name="mortality_today" readonly="1"/>
+                            <field name="is_ready" invisible="1"/>  
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Weight Measurements">
+                            <field name="current_weight" readonly="1"/>
+                            <field name="target_weight"/>
+                            <field name="weight_progress" widget="progressbar"/>
+                        </group>
+                        <group string="Feed Data">
+                            <field name="daily_feed_consumption" readonly="1"/>
+                            <field name="feed_per_bird" readonly="1"/>
+                            <field name="fcr" readonly="1" 
+                                   decoration-success="fcr &lt; 1.8"
+                                   decoration-warning="fcr &gt;= 1.8 and fcr &lt; 2.2"
+                                   decoration-danger="fcr &gt;= 2.2"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Growth Cost Summary">                            
+                            <field name="growth_feed_cost" readonly="1" widget="monetary"/>
+                            <field name="growth_medicine_cost" readonly="1" widget="monetary"/>
+                            <field name="growth_gas_cost" readonly="1" widget="monetary"/>
+                        </group>
+                        <group string="Combined Cost Summary">
+                            <field name="initial_flock_cost" readonly="1" widget="monetary"/>
+                            <field name="total_cost" readonly="1" widget="monetary"/>
+                            <field name="cost_per_bird" readonly="1" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Notes">
+                            <field name="notes" nolabel="1" placeholder="Add any observations or notes..."/>
+                        </group>
+                    </group>
+                    <notebook invisible="state == 'draft'">
+                        <page string="Mortality Records" name="mortality">
+                            <field name="mortality_ids" readonly="state == 'slaughtered'" invisible="state == 'draft'">
+                                <list editable="bottom" decoration-success="state == 'processed'">
+                                    <field name="date"/>
+                                    <field name="age_from"/>
+                                    <field name="quantity"/>
+                                    <field name="reason"/>
+                                    <field name="description"/>
+                                    <field name="state" column_invisible="1"/>
+                                    <button name="action_process" type="object" 
+                                            string="Process" 
+                                            class="btn-primary" 
+                                            groups="ibos_poultry.group_poultry_production_manager"
+                                            invisible="quantity &lt;= 0 or date &gt; context_today().strftime('%Y-%m-%d') or state== 'processed'"
+                                            icon="fa-check"
+                                            title="Process"/>
+                                </list>
+                            </field>
+                        </page>
+
+                       
+                        <page string="Feed Consumption" name="feed">
+                            <field name="feed_consumption_ids" readonly="state == 'slaughtered'" invisible="state == 'draft'">
+                                <list create="0" decoration-success="landed_cost_id or stock_move_id">
+                                    <field name="date" readonly='1' options="{'datepicker': {'maxDate': 'today'}}"/>                                        
+                                    <field name="age_from" readonly='1'/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="cost_per_unit"/>
+                                    <field name="total_cost"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="landed_cost_id" column_invisible="1"/>
+                                    <field name="stock_move_id" column_invisible="1"/>
+                                    <button name="action_process_record" type="object" 
+                                            string="Process" 
+                                            class="btn-primary" 
+                                            groups="ibos_poultry.group_poultry_production_manager"
+                                            invisible="quantity &lt;= 0 or landed_cost_id or stock_move_id or date &gt; context_today().strftime('%Y-%m-%d') or parent.state not in ['confirmed', 'partially_processed']"
+                                            icon="fa-check"
+                                            title="Create Landed Cost and Stock Move"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Vaccines &amp; Supplements" name="medicine" >
+                            <field name="medicine_usage_ids" readonly="state == 'slaughtered'" invisible="state == 'draft'">
+                                <list editable="bottom" decoration-success="landed_cost_id or stock_move_id">
+                                    <field name="date" options="{'datepicker': {'maxDate': 'today'}}"/> 
+                                    <field name="age_from" />
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="cost_per_unit"/>
+                                    <field name="total_cost"/>
+                                    <field name="purpose"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="landed_cost_id" column_invisible="1"/>
+                                    <field name="stock_move_id" column_invisible="1"/>
+                                    <button name="action_process_record" type="object" 
+                                            string="Process" 
+                                            class="btn-primary" 
+                                            groups="ibos_poultry.group_poultry_production_manager"
+                                            invisible="quantity &lt;= 0 or landed_cost_id or stock_move_id or date &gt; context_today().strftime('%Y-%m-%d') or parent.state not in ['confirmed', 'partially_processed']"
+                                            icon="fa-check"
+                                            title="Create Landed Cost and Stock Move"/>
+                                </list>
+                            </field>
+                        </page> 
+                        <page string="Fuel / Gas Usage" name="gas">
+                            <field name="gas_consumption_ids" readonly="state == 'slaughtered'" invisible="state == 'draft'">
+                                <list editable="bottom" decoration-success="landed_cost_id or stock_move_id">
+                                    <field name="date" options="{'datepicker': {'maxDate': 'today'}}"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="cost_per_unit"/>
+                                    <field name="total_cost"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="landed_cost_id" column_invisible="1"/>
+                                    <field name="stock_move_id" column_invisible="1"/>
+                                    <button name="action_process_record" type="object" 
+                                            string="Process" 
+                                            class="btn-primary" 
+                                            groups="ibos_poultry.group_poultry_production_manager"
+                                            invisible="quantity &lt;= 0 or landed_cost_id or stock_move_id or date &gt; context_today().strftime('%Y-%m-%d') or parent.state not in ['confirmed', 'partially_processed']"
+                                            icon="fa-check"
+                                            title="Create Landed Cost and Stock Move"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Weighing Records" name="weighing">
+                            <field name="weighing_ids" readonly="state == 'slaughtered'" invisible="state == 'draft'">
+                                <list editable="bottom">
+                                    <field name="weighing_date" options="{'datepicker': {'maxDate': 'today'}}"/>
+                                    <field name="age_from"/>
+                                    <field name="sample_size"/>
+                                    <field name="average_weight"/>
+                                    <field name="total_sample_weight"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Poultry Growth Tracking Graph View -->
+    <record id="poultry_growth_tracking_graph_view" model="ir.ui.view">
+        <field name="name">poultry.growth.tracking.graph</field>
+        <field name="model">poultry.growth.tracking</field>
+        <field name="arch" type="xml">
+            <graph string="Growth Analysis" type="line" sample="1">
+                <field name="tracking_date" type="row"/>
+                <field name="average_weight" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Poultry Growth Tracking Pivot View -->
+    <record id="poultry_growth_tracking_pivot_view" model="ir.ui.view">
+        <field name="name">poultry.growth.tracking.pivot</field>
+        <field name="model">poultry.growth.tracking</field>
+        <field name="arch" type="xml">
+            <pivot string="Growth Analysis" sample="1">
+                <field name="poultry_location_id" type="row"/>
+                <field name="tracking_date" interval="week" type="col"/>
+                <field name="average_weight" type="measure"/>
+                <field name="fcr" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Poultry Growth Tracking Search View -->
+    <record id="poultry_growth_tracking_search_view" model="ir.ui.view">
+        <field name="name">poultry.growth.tracking.search</field>
+        <field name="model">poultry.growth.tracking</field>
+        <field name="arch" type="xml">
+            <search string="Search Growth Tracking">
+                <field name="name"/>
+                <field name="batch_number"/>
+                <field name="flock_id"/>
+                <field name="poultry_location_id"/>
+                <field name="tracking_date"/>
+                <separator/>
+                <filter string="New" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Active" name="active_tracking"
+                        domain="[('state', 'in', ['confirmed','partially_processed'])]"/>
+                <filter string="Slaughtered" name="slaughtered" domain="[('state', '=', 'slaughtered')]"/>
+                <separator/>
+                <filter string="Today" name="today" 
+                        domain="[('tracking_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Last 7 Days" name="last_week" 
+                        domain="[('tracking_date', '&gt;=', (context_today() - relativedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="This Month" name="this_month" 
+                        domain="[('tracking_date', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Flock" name="group_flock" context="{'group_by': 'flock_id'}"/>
+                    <filter string="Location" name="group_location" context="{'group_by': 'poultry_location_id'}"/>
+                    <filter string="Tracking Date" name="group_date" context="{'group_by': 'tracking_date:week'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Poultry Growth Tracking Action -->
+    <record id="poultry_growth_tracking_action" model="ir.actions.act_window">
+        <field name="name">Growth Tracking</field>
+        <field name="res_model">poultry.growth.tracking</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="poultry_growth_tracking_search_view"/>
+        <field name="context">{'search_default_active_tracking': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new growth tracking record
+            </p>
+            <p>
+                Track the growth and performance of your flocks in their locations.<br/>
+                Record weight, feed consumption, and environmental conditions to monitor flock health and performance.
+            </p>
+        </field>
+    </record>
+</odoo>

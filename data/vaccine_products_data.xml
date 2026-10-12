@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Vaccine and Medicine Products -->
+    
+    <!-- Chickstart -->
+    <record id="product_chickstart" model="product.product">
+        <field name="name">Chickstart</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Ovin -->
+    <record id="product_ovin" model="product.product">
+        <field name="name">Ovin</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Parafin -->
+    <record id="product_parafin" model="product.product">
+        <field name="name">Liquid Paraffin</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Enocure -->
+    <record id="product_enocure" model="product.product">
+        <field name="name">Enocure</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Livergen -->
+    <record id="product_livergen" model="product.product">
+        <field name="name">Livergen</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Newcastle Vaccine -->
+    <record id="product_newcastle_vaccine" model="product.product">
+        <field name="name">Newcastle Vaccine</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Gumboro Vaccine -->
+    <record id="product_gumboro_vaccine" model="product.product">
+        <field name="name">Gumboro Vaccine</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Broiler Vitamins -->
+    <record id="product_broiler_vitamins" model="product.product">
+        <field name="name">Broiler Vitamins</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+    
+    <!-- Syna Acid -->
+    <record id="product_syna_acid" model="product.product">
+        <field name="name">Syna Acid</field>
+        <field name="type">consu</field>
+        <field name="poultry_product_type">medicine</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="is_storable" eval="True"/>
+        <field name="is_farm_raw_material" eval="True"/>
+        <field name="list_price">0.00</field>
+        <field name="standard_price">0.00</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="purchase_ok">True</field>
+        <field name="sale_ok">False</field>
+    </record>
+
+</odoo>

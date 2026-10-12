@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Poultry Weighing List View -->
+    <record id="poultry_weighing_list_view" model="ir.ui.view">
+        <field name="name">poultry.weighing.list</field>
+        <field name="model">poultry.weighing</field>
+        <field name="arch" type="xml">
+            <list string="Weighing Records" sample="1">
+                <field name="weighing_date"/>
+                <field name="age_from"/>
+                <field name="flock_id"/>
+                <field name="growth_tracking_id"/>
+                <field name="sample_size"/>
+                <field name="average_weight"/>
+                <field name="total_sample_weight"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Poultry Weighing Form View -->
+    <record id="poultry_weighing_form_view" model="ir.ui.view">
+        <field name="name">poultry.weighing.form</field>
+        <field name="model">poultry.weighing</field>
+        <field name="arch" type="xml">
+            <form string="Weighing Record">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="weighing_date" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="flock_id"/>
+                            <field name="growth_tracking_id"/>
+                        </group>
+                        <group>
+                            <field name="average_weight"/>
+                            <field name="sample_size"/>
+                            <field name="total_sample_weight"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Add any notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Poultry Weighing Graph View -->
+    <record id="poultry_weighing_graph_view" model="ir.ui.view">
+        <field name="name">poultry.weighing.graph</field>
+        <field name="model">poultry.weighing</field>
+        <field name="arch" type="xml">
+            <graph string="Weight Progression" type="line" sample="1">
+                <field name="weighing_date" type="row" interval="day"/>
+                <field name="average_weight" type="measure"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

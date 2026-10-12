@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Actions -->
+    <!-- Feed Consumption Action (Read-only for Grow Out Phase) -->
+    <record id="poultry_feed_consumption_action" model="ir.actions.act_window">
+        <field name="name">Feed Consumption</field>
+        <field name="res_model">poultry.feed.consumption</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('growth_tracking_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No feed consumption records yet
+            </p>
+            <p>
+                Feed consumption records are created from growth tracking records.
+            </p>
+        </field>
+    </record>
+
+    <!-- Poultry Reports Action -->
+    <record id="poultry_reports_action" model="ir.actions.act_window">
+        <field name="name">Poultry Reports</field>
+        <field name="res_model">poultry.reports</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Welcome to Poultry Reports Dashboard
+            </p>
+            <p>
+                Select report parameters and view comprehensive poultry farm analytics.
+            </p>
+        </field>
+    </record>
+
+    <!-- Poultry Feed Consumption List View -->
+    <record id="poultry_feed_consumption_list_view" model="ir.ui.view">
+        <field name="name">poultry.feed.consumption.list</field>
+        <field name="model">poultry.feed.consumption</field>
+        <field name="arch" type="xml">
+            <list string="Feed Consumption" sample="1">
+                <field name="date"/>
+                <field name="flock_id"/>
+                <field name="growth_tracking_id"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="uom_id"/>
+                <field name="cost_per_unit" widget="monetary"/>
+                <field name="total_cost" widget="monetary" sum="Total Cost"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Poultry Feed Consumption Form View -->
+    <record id="poultry_feed_consumption_form_view" model="ir.ui.view">
+        <field name="name">poultry.feed.consumption.form</field>
+        <field name="model">poultry.feed.consumption</field>
+        <field name="arch" type="xml">
+            <form string="Feed Consumption">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="product_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="flock_id"/>
+                            <field name="growth_tracking_id"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="cost_per_unit" widget="monetary"/>
+                            <field name="total_cost" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="stock_move_id"/>
+                            <field name="landed_cost_id"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Add any notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Feed Consumption Dialog Form (used in One2many) -->
+    <record id="poultry_feed_consumption_dialog_form" model="ir.ui.view">
+        <field name="name">poultry.feed.consumption.dialog.form</field>
+        <field name="model">poultry.feed.consumption</field>
+        <field name="arch" type="xml">
+            <form string="Record Feed Consumption">
+                <group>
+                    <group>
+                        <field name="flock_id" invisible="1"/>
+                        <field name="growth_tracking_id" invisible="1"/>
+                        <field name="date" readonly="1"/>
+                        <field name="product_id" options="{'no_create': True}" readonly="1"/>
+                        <field name="quantity" readonly="1"/>
+                        <field name="uom_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="cost_per_unit" widget="monetary"/>
+                        <field name="total_cost" widget="monetary"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="notes" placeholder="Additional notes..." nolabel="1"/>
+                </group>
+                <footer>
+                    <button string="Save" special="save" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Poultry Feed Consumption Graph View -->
+    <record id="poultry_feed_consumption_graph_view" model="ir.ui.view">
+        <field name="name">poultry.feed.consumption.graph</field>
+        <field name="model">poultry.feed.consumption</field>
+        <field name="arch" type="xml">
+            <graph string="Feed Consumption Trends" type="line" sample="1">
+                <field name="date" type="row" interval="day"/>
+                <field name="quantity" type="measure"/>
+                <field name="total_cost" type="measure"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

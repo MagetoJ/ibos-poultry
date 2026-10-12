@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Broiler Vaccination Schedule -->
+    <record id="vaccination_schedule_broiler" model="vaccination.schedule">
+        <field name="name">Vaccination Schedule</field>
+        <field name="bird_type">broiler</field>
+        <field name="active">True</field>
+        <field name="notes">Standard broiler vaccination program covering all stages from day 1 to slaughter</field>
+    </record>
+
+    <!-- Schedule Lines -->
+    
+    <!-- Day 1: Chickstart, Ovin, Parafin -->
+    <record id="vaccination_line_chickstart_day1" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">1</field>
+        <field name="age_to">1</field>
+        <field name="vaccine_product_id" ref="product_chickstart"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Day-old chick supplement</field>
+    </record>
+    
+    <record id="vaccination_line_ovin_day1" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">1</field>
+        <field name="age_to">1</field>
+        <field name="vaccine_product_id" ref="product_ovin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Early stage immunity booster</field>
+    </record>
+    
+    <record id="vaccination_line_parafin_day1" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">1</field>
+        <field name="age_to">1</field>
+        <field name="vaccine_product_id" ref="product_parafin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Parasite prevention</field>
+    </record>
+    
+    <!-- Day 2: Chickstart, Ovin, Parafin -->
+    <record id="vaccination_line_chickstart_day2" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">2</field>
+        <field name="age_to">2</field>
+        <field name="vaccine_product_id" ref="product_chickstart"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Day-old chick supplement</field>
+    </record>
+    
+    <record id="vaccination_line_ovin_day2" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">2</field>
+        <field name="age_to">2</field>
+        <field name="vaccine_product_id" ref="product_ovin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Early stage immunity booster</field>
+    </record>
+    
+    <record id="vaccination_line_parafin_day2" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">2</field>
+        <field name="age_to">2</field>
+        <field name="vaccine_product_id" ref="product_parafin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Parasite prevention</field>
+    </record>
+    
+    <!-- Day 3: Chickstart, Ovin, Parafin, Enocure -->
+    <record id="vaccination_line_chickstart_day3" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">3</field>
+        <field name="age_to">3</field>
+        <field name="vaccine_product_id" ref="product_chickstart"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Day-old chick supplement</field>
+    </record>
+    
+    <record id="vaccination_line_ovin_day3" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">3</field>
+        <field name="age_to">3</field>
+        <field name="vaccine_product_id" ref="product_ovin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Early stage immunity booster</field>
+    </record>
+    
+    <record id="vaccination_line_parafin_day3" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">3</field>
+        <field name="age_to">3</field>
+        <field name="vaccine_product_id" ref="product_parafin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Parasite prevention</field>
+    </record>
+    
+    <record id="vaccination_line_enocure_day3" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">3</field>
+        <field name="age_to">3</field>
+        <field name="vaccine_product_id" ref="product_enocure"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Intestinal health support</field>
+    </record>
+    
+    <!-- Day 4: Chickstart, Ovin, Parafin, Enocure -->
+    <record id="vaccination_line_chickstart_day4" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">4</field>
+        <field name="age_to">4</field>
+        <field name="vaccine_product_id" ref="product_chickstart"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Day-old chick supplement</field>
+    </record>
+    
+    <record id="vaccination_line_ovin_day4" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">4</field>
+        <field name="age_to">4</field>
+        <field name="vaccine_product_id" ref="product_ovin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Early stage immunity booster</field>
+    </record>
+    
+    <record id="vaccination_line_parafin_day4" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">4</field>
+        <field name="age_to">4</field>
+        <field name="vaccine_product_id" ref="product_parafin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Parasite prevention</field>
+    </record>
+    
+    <record id="vaccination_line_enocure_day4" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">4</field>
+        <field name="age_to">4</field>
+        <field name="vaccine_product_id" ref="product_enocure"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Intestinal health support</field>
+    </record>
+    
+    <!-- Day 5: Chickstart, Ovin, Parafin -->
+    <record id="vaccination_line_chickstart_day5" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">5</field>
+        <field name="age_to">5</field>
+        <field name="vaccine_product_id" ref="product_chickstart"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Day-old chick supplement</field>
+    </record>
+    
+    <record id="vaccination_line_ovin_day5" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">5</field>
+        <field name="age_to">5</field>
+        <field name="vaccine_product_id" ref="product_ovin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Early stage immunity booster</field>
+    </record>
+    
+    <record id="vaccination_line_parafin_day5" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">5</field>
+        <field name="age_to">5</field>
+        <field name="vaccine_product_id" ref="product_parafin"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Parasite prevention</field>
+    </record>
+    
+    <!-- Day 13: Livergen -->
+    <record id="vaccination_line_livergen_day13" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">13</field>
+        <field name="age_to">13</field>
+        <field name="vaccine_product_id" ref="product_livergen"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Liver function support</field>
+    </record>
+    
+    <!-- Day 14: Newcastle Vaccine -->
+    <record id="vaccination_line_newcastle" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">14</field>
+        <field name="age_to">14</field>
+        <field name="vaccine_product_id" ref="product_newcastle_vaccine"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Newcastle Disease prevention</field>
+    </record>
+    
+    <!-- Day 20: Livergen, Broiler Vitamins (Week 1), Syna Acid (Week 1) -->
+    <record id="vaccination_line_livergen_day20" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">20</field>
+        <field name="age_to">20</field>
+        <field name="vaccine_product_id" ref="product_livergen"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Liver function support</field>
+    </record>
+    
+    <record id="vaccination_line_vitamins_week1" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">20</field>
+        <field name="age_to">20</field>
+        <field name="vaccine_product_id" ref="product_broiler_vitamins"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Growth support and nutrition (Week 1)</field>
+    </record>
+    
+    <record id="vaccination_line_syna_acid_week1" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">20</field>
+        <field name="age_to">20</field>
+        <field name="vaccine_product_id" ref="product_syna_acid"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Water pH management and gut health (Week 1)</field>
+    </record>
+    
+    <!-- Day 21: Gumboro Vaccine -->
+    <record id="vaccination_line_gumboro" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">21</field>
+        <field name="age_to">21</field>
+        <field name="vaccine_product_id" ref="product_gumboro_vaccine"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Gumboro Disease prevention</field>
+    </record>
+    
+    <!-- Day 27: Broiler Vitamins (Week 2), Syna Acid (Week 2) -->
+    <record id="vaccination_line_vitamins_week2" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">27</field>
+        <field name="age_to">27</field>
+        <field name="vaccine_product_id" ref="product_broiler_vitamins"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Growth support and nutrition (Week 2)</field>
+    </record>
+    
+    <record id="vaccination_line_syna_acid_week2" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">27</field>
+        <field name="age_to">27</field>
+        <field name="vaccine_product_id" ref="product_syna_acid"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Water pH management and gut health (Week 2)</field>
+    </record>
+    
+    <!-- Day 34: Broiler Vitamins (Week 3), Syna Acid (Week 3) -->
+    <record id="vaccination_line_vitamins_week3" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">34</field>
+        <field name="age_to">34</field>
+        <field name="vaccine_product_id" ref="product_broiler_vitamins"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Growth support and nutrition (Week 3)</field>
+    </record>
+    
+    <record id="vaccination_line_syna_acid_week3" model="vaccination.schedule.line">
+        <field name="schedule_id" ref="vaccination_schedule_broiler"/>
+        <field name="age_from">34</field>
+        <field name="age_to">34</field>
+        <field name="vaccine_product_id" ref="product_syna_acid"/>
+        <field name="quantity_per_bird">0</field>
+        <field name="frequency">once</field>
+        <field name="purpose">Water pH management and gut health (Week 3)</field>
+    </record>
+    
+</odoo>

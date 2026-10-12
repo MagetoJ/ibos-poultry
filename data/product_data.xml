@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Service Product for Poultry Cost Allocation -->
+    <record id="product_poultry_cost_allocation" model="product.product">
+        <field name="name">Poultry Cost Allocation</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="list_price">0.0</field>
+        <field name="standard_price">0.0</field>
+        <!-- <field name="detailed_type">service</field> -->
+        <field name="purchase_ok">True</field>
+        <field name="landed_cost_ok">True</field>
+        <field name="split_method_landed_cost">equal</field>
+        <field name="invoice_policy">order</field>
+        <field name="description">Service product used for landed cost allocation of feed, medicine, and other poultry expenses</field>
+    </record>
+</odoo>

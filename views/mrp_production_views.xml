@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Manufacturing Order Form View for Poultry Processing -->
+    <record id="mrp_production_poultry_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.poultry.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add smart buttons to button box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_growth_tracking" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-leaf"
+                        invisible="growth_tracking_count == 0">
+                    <field name="growth_tracking_count" widget="statinfo" string="Growth Tracking"/>
+                </button>
+                <button name="action_view_slaughter" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-cutlery"
+                        invisible="slaughter_count == 0">
+                    <field name="slaughter_count" widget="statinfo" string="Slaughter Record"/>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button name="action_confirm" type="object" class="btn btn-secondary" 
+                        invisible="state != 'to_close'">
+                    Generate Serial/Lot Numbers
+                </button>
+            </xpath>
+            
+            <!-- Add poultry fields after product field -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="is_poultry_processing" invisible="1"/>
+                <field name="growth_tracking_id" 
+                       invisible="not is_poultry_processing"
+                       readonly="state != 'draft'"/>
+                <field name="flock_id" 
+                       invisible="not is_poultry_processing"
+                       readonly="1"/>
+                <field name="batch_number" 
+                       invisible="not is_poultry_processing"
+                       readonly="1"/>
+            </xpath>
+            
+            <!-- Add poultry processing details group -->
+            <xpath expr="//page[@name='miscellaneous']" position="after">
+                <page string="Poultry Processing" name="poultry_processing" 
+                      invisible="not is_poultry_processing">
+                    <group>
+                        <group string="Live Bird Details">
+                            <field name="live_bird_count"/>
+                            <field name="average_live_weight"/>
+                            <field name="total_live_weight" readonly="1"/>
+                        </group>
+                        <group string="Processing Details">
+                            <field name="dressing_percentage"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend Manufacturing Order List View for Poultry Processing -->
+    <record id="mrp_production_poultry_list_view" model="ir.ui.view">
+        <field name="name">mrp.production.poultry.list</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_qty']" position="before">
+                <field name="live_bird_count" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='product_qty']" position="after">
+                <field name="average_live_weight" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Manufacturing Orders for Poultry Processing -->
+    <record id="mrp_production_poultry_action" model="ir.actions.act_window">
+        <field name="name">Poultry Processing Orders</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">list,kanban,form,calendar,pivot,graph</field>
+        <field name="domain">[('is_poultry_processing', '=', True)]</field>
+        <field name="context">{'search_default_todo': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No processing orders found
+            </p>
+            <p>
+                Create manufacturing orders to process live birds into dressed chicken products.
+            </p>
+        </field>
+    </record>
+</odoo>

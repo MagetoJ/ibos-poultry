@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Configuration Assist List View -->
+    <record id="view_poultry_configuration_assist_list" model="ir.ui.view">
+        <field name="name">poultry.configuration.assist.list</field>
+        <field name="model">poultry.configuration.assist</field>
+        <field name="arch" type="xml">
+            <list string="Poultry Location Configurations" create="true">
+                <field name="warehouse_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="create_date" string="Date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Configuration Assist Form View -->
+    <record id="view_poultry_configuration_assist_form" model="ir.ui.view">
+        <field name="name">poultry.configuration.assist.form</field>
+        <field name="model">poultry.configuration.assist</field>
+        <field name="arch" type="xml">
+            <form string="Poultry Location Configuration">
+                <header>
+                     <button name="action_configure" string="Configure" 
+                            type="object" class="oe_highlight"
+                            />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="warehouse_id" options="{'no_create': True}"/>
+                        <div class="alert alert-info" role="alert">
+                                Check 'Is Default Raw Material Location in Inventory -&gt; Locations'.
+                            </div>
+                        <field name="default_raw_material_location_id" required="1"
+                               options="{'no_create': True, 'no_open': True}"
+                               placeholder="Select default raw material location..."/>
+                            <div class="alert alert-info" role="alert">
+                                    Check 'Is Loss Location on a Location in Inventory -&gt; Locations' if you need to use a different Poultry scrap from other scrap operations'.
+                            </div>
+                        <field name="default_scrap_location_id" required="1"
+                               options="{'no_create': True, 'no_open': True}"
+                               placeholder="Select default scrap location..."/>
+                    </group>
+                    
+                    <group invisible="not warehouse_id">
+                        <!-- <button name="action_create_new_location" 
+                                string="Create New Location in Warehouse" 
+                                type="object" 
+                                class="btn-secondary"
+                                icon="fa-plus"/> -->
+                    </group>
+                    
+                    <group invisible="not warehouse_id">
+                        <field name="location_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="location_id" />
+                                <field name="code"/>
+                                <field name="location_type"/>
+                                <field name="capacity"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                
+                <footer>
+                    <button string="Create Poultry Locations" 
+                            name="action_configure" 
+                            type="object" 
+                            class="btn-primary" 
+                            invisible="not warehouse_id or not location_line_ids"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Configuration Line Form View -->
+    <record id="view_poultry_configuration_assist_line_form" model="ir.ui.view">
+        <field name="name">poultry.configuration.assist.line.form</field>
+        <field name="model">poultry.configuration.assist.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="location_id"/>
+                    <field name="code"/>
+                    <field name="location_type"/>
+                    <field name="capacity"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Configuration Assist Action -->
+    <record id="action_poultry_configuration_assist" model="ir.actions.act_window">
+        <field name="name">Setup Poultry Locations</field>
+        <field name="res_model">poultry.configuration.assist</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No configurations yet
+            </p>
+            <p>
+                Click <b>Create</b> to set up poultry locations for a warehouse.
+            </p>
+        </field>
+    </record>
+
+    <!-- Stock Locations Action for Configuration Menu -->
+    <record id="action_stock_locations_config" model="ir.actions.act_window">
+        <field name="name">Stock Locations</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No locations configured yet
+            </p>
+            <p>
+                Use the Configuration Assistant to set up warehouses and locations.
+            </p>
+        </field>
+    </record>
+
+</odoo>

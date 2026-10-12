@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBOS Poultry Management System - Odoo 18</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary-color: #7c3aed;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --text-dark: #1f2937;
+            --text-medium: #6b7280;
+            --text-light: #9ca3af;
+            --background-light: #f9fafb;
+            --background-white: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23ffffff"/></svg>') no-repeat center bottom;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 6px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        .badge:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 0;
+            background: var(--background-white);
+        }
+
+        .section:nth-child(even) {
+            background: var(--background-light);
+        }
+
+        .section h2 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .section h3 {
+            font-size: 1.9em;
+            margin: 40px 0 20px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .section > .container > p {
+            
+            font-size: 1.15em;
+            max-width: 850px;
+            margin: 20px auto 0;
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--background-white);
+            padding: 36px 28px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3.2em;
+            margin-bottom: 24px;
+            display: block;
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            margin: 0 0 16px 0;
+            font-size: 1.5em;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-card li {
+            padding: 10px 0;
+            padding-left: 32px;
+            position: relative;
+            color: var(--text-medium);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .feature-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            top: 8px;
+        }
+
+        /* Screenshots */
+        .screenshot {
+            margin: 40px 0;
+            
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .screenshot p {
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .benefit-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            
+        }
+
+        .benefit-item h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 10px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Technical Info */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tech-item strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1.1em;
+            }
+
+            .section h2 {
+                font-size: 1.8em;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1>🐔 IBOS Poultry Management System</h1>
+            <p>Complete End-to-End Poultry Farm Management for Odoo 18</p>
+            <div>
+                <span class="badge">Odoo 18.0</span>
+                <span class="badge">Agriculture</span>
+                <span class="badge">OPL-1</span>
+                <span class="badge">v18.0.1.2.3</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="section">
+        <div class="container">
+            <h2>Transform Your Poultry Operations</h2>
+            <span style="display: block;font-size: 1.2em; margin-bottom: 30px; color: var(--text-medium);">
+                A comprehensive poultry farm management solution designed to streamline operations from day-old chick 
+                receipt through growth tracking to final processing and slaughter. Built specifically for Odoo 18 
+                with full integration to inventory, purchasing, manufacturing, sales, and accounting.
+            </span>
+        </div>
+    </div>
+
+    <!-- Key Features -->
+    <div class="section">
+        <div class="container">
+            <h2>Powerful Features for Every Operation</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🐣 Flock Management</h3>
+                    <ul>
+                        <li>Automatic flock creation from Purchase Receipts</li>
+                        <li>Real-time mortality tracking</li>
+                        <li>Cost per bird calculations</li>
+                        <li>Age and growth monitoring</li>
+                        <li>Scheduled weighing records</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📈 Growth Tracking</h3>
+                    <ul>
+                        <li>Brooding to grow-out transfers</li>
+                        <li>Location capacity management</li>
+                        <li>Slaughter date Scheduling</li>
+                        <li>Partial processing support</li>
+                        <li>Integration with Manufacturing</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🌾 Feed & Medicine</h3>
+                    <ul>
+                        <li>Automated Stock Consumption</li>
+                        <li>Automatic Costing. FIFO and Valuation by lots is highly recommended in Bird Setup</li>
+                        <li>Vaccine Consumption Tracking</li>
+                        <li>Gas(Fuel/Electricity) consumption monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔪 Processing & Slaughter</h3>
+                    <ul>
+                        <li>Manufacturing order integration</li>
+                        <li>BOM with byproduct tracking</li>
+                        <li>Live & dressed weight recording</li>
+                        <li>Batch processing workflows</li>
+                        <li>State management automation</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>💰 Financial Integration</h3>
+                    <ul>
+                        <li>Automatic landed cost distribution</li>
+                        <li>Real-time cost calculations</li>
+                        <li>Currency-aware reporting</li>
+                        <li>Accounting integration</li>
+                        <li>Asset management support</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3>📊 Dashboard & Reports</h3>
+                    <ul>
+                        <li>Real-time KPI cards</li>
+                        <li>Activity schedules</li>
+                        <li>Cost analysis reports</li>
+                        <li>Weight tracking charts</li>
+                        <li>Slaughter performance metrics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="section">
+        <div class="container">
+            <h2>Why Choose IBOS Poultry?</h2>
+            <div class="benefits">
+                <div class="benefit-item">
+                    <h4>⚡ Streamlined Workflow</h4>
+                    <p>Automatic record creation eliminates manual data entry</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>💡 Accurate Costing</h4>
+                    <p>Real-time cost per bird with landed cost integration</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>📱 Modern Dashboard</h4>
+                    <p>Reactive UI with OWL framework for instant updates</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🔄 Complete Integration</h4>
+                    <p>Seamlessly works with stock, purchase, MRP & accounting</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="section">
+        <div class="container">
+            <h2>Simple, Powerful Workflow</h2>
+            <div style="max-width: 900px; margin: 40px auto; padding: 30px; background: #f8f9fa; border-radius: 10px;">
+                <h3 style=" color: #667eea; margin-bottom: 30px;">From Purchase to Processing</h3>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background: #667eea; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <div>
+                            <strong>Purchase Order</strong> - Order day-old chicks from suppliers
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background: #667eea; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <div>
+                            <strong>Receipt & Flock Creation</strong> - System auto-creates flock on validation
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background: #667eea; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <div>
+                            <strong>Growth Tracking</strong> - Transfer to grow-out, monitor feed & weight
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background: #667eea; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                        <div>
+                            <strong>Processing</strong> - Create MO with BOM, track byproducts
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="min-width: 40px; height: 40px; background: #28a745; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                        <div>
+                            <strong>Finished Goods</strong> - Dressed chicken ready for sale
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Specifications -->
+    <div class="section">
+        <div class="container">
+            <h2>Technical Specifications</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <strong>Odoo Version</strong>
+                    18.0 and above
+                </div>
+                <div class="tech-item">
+                    <strong>License</strong>
+                    OPL-1
+                </div>
+                <div class="tech-item">
+                    <strong>Language</strong>
+                    Python 3.10+
+                </div>
+                <div class="tech-item">
+                    <strong>Category</strong>
+                    Agriculture
+                </div>
+                <div class="tech-item">
+                    <strong>Dependencies</strong>
+                    stock, purchase, mrp, sale, account
+                </div>
+                <div class="tech-item">
+                    <strong>Framework</strong>
+                    OWL Dashboard, State Machines
+                </div>
+            </div>
+
+            <!-- <h3 style="margin-top: 50px;">Key Models</h3>
+            <ul style="max-width: 800px; margin: 20px auto; font-size: 1.1em;">
+                <li><strong>poultry.flock</strong> - Central entity for bird batches</li>
+                <li><strong>poultry.growth.tracking</strong> - Grow-out phase management</li>
+                <li><strong>poultry.slaughter</strong> - Processing records with MO integration</li>
+                <li><strong>poultry.location</strong> - Housing with capacity management</li>
+                <li><strong>poultry.feed.consumption</strong> - Feed tracking with landed costs</li>
+                <li><strong>poultry.medicine.usage</strong> - Vaccine and medication tracking</li>
+            </ul> -->
+        </div>
+    </div>
+    <br/>
+
+    <!-- Perfect For -->
+    <div class="section">
+        <div class="container">
+            <h2>Perfect For</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); ">
+                    <h3>🏡 Small Farms</h3>
+                    <p>Streamline operations with automated tracking and cost management</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); ">
+                    <h3>🏢 Commercial Operations</h3>
+                    <p>Scale efficiently with multi-location support and batch processing</p>
+                </div>
+                <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); ">
+                    <h3>🏭 Integrated Processors</h3>
+                    <p>Complete farm-to-processing workflow with financial integration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your Poultry Operations?</h2>
+            <p style="font-size: 1.2em; margin-bottom: 30px;">
+                Get started with IBOS Poultry Management System today
+            </p>
+            <a href="https://www.ibos.co.ke" class="cta-button">Learn More</a>
+        </div>
+    </div>
+    <br/>
+
+    <!-- Support Section -->
+    <div class="section">
+        <div class="container">
+            <h2>Professional Support & Services</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.1em; margin-bottom: 30px;">
+                    IBOS Business Solutions provides comprehensive support and customization services
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                    <div>
+                        <strong style="display: block; margin-bottom: 10px; font-size: 1.2em;">📧 Email</strong>
+                        <a href="mailto:support@ibos.co.ke">support@ibos.co.ke</a>
+                    </div>
+                    <div>
+                        <strong style="display: block; margin-bottom: 10px; font-size: 1.2em;">🌐 Website</strong>
+                        <a href="https://www.ibos.co.ke">www.ibos.co.ke</a>
+                    </div>
+                    <div>
+                        <strong style="display: block; margin-bottom: 10px; font-size: 1.2em;">💼 Services</strong>
+                        Training, Integration, Custom Development
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p style="font-size: 1.1em; margin-bottom: 10px;">
+                <strong>IBOS Poultry Management System</strong>
+            </p>
+            <p>
+                Developed by <a href="https://www.ibos.co.ke">Integrity Business Outsourcing Solutions</a>
+                <br/>
+                Maintained by <a href="https://github.com/tyrmoga">James Oginga</a>
+            </p>
+            
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+                © 2026 IBOS Business Solutions. All rights reserved. | License: OPL-1
+            </p>
+        </div>
+    </div>
+</body>
+</html>

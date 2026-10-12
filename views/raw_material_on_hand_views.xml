@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_raw_material_on_hand_list" model="ir.ui.view">
+        <field name="name">raw.material.on.hand.list</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <list string="Raw Materials On Hand">
+                <field name="default_code"/>
+                <field name="name"/>
+                <field name="poultry_product_type"/>
+                <field name="standard_price"/>
+                <field name="qty_available"/>
+                <field name="free_qty"/>
+                <field name="incoming_qty"/>
+                <field name="uom_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_raw_material_on_hand" model="ir.actions.act_window">
+        <field name="name">Raw Material On Hand</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_raw_material_on_hand_list"/>
+        <field name="domain">[('product_tmpl_id.is_farm_raw_material', '=', True)]</field>
+        <field name="context">{'search_default_is_farm_raw_material': 1}</field>
+    </record>
+
+</odoo>

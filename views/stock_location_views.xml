@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Stock Location Form View Inherit -->
+    <record id="stock_location_form_view_inherit_poultry" model="ir.ui.view">
+        <field name="name">stock.location.form.inherit.poultry</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='replenish_location']" position="after">
+                <field name="is_staging_location" invisible="usage != 'internal'"/>
+                <field name="is_loss_location" invisible="usage != 'inventory'"/>
+                <field name="is_poultry_scrap_location" invisible="usage != 'inventory'"/>
+                <field name="is_raw_material_location" invisible="usage != 'internal'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

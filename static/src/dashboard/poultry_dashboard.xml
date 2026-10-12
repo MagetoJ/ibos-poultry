@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ibos_poultry.PoultryDashboard">
+        <div class="o_poultry_dashboard">
+            <!-- Header -->
+            <div class="o_dashboard_header">
+                <h1 class="o_dashboard_title"><t t-esc="state.data.company_name"/> Poultry</h1>
+                <button class="btn btn-primary" t-on-click="refreshDashboard">
+                    <i class="fa fa-refresh"/> Refresh
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <t t-if="state.loading">
+                <div class="o_dashboard_loading text-center py-5">
+                    <i class="fa fa-spinner fa-spin fa-3x text-primary"/>
+                    <p class="mt-3">Loading dashboard...</p>
+                </div>
+            </t>
+
+            <!-- Main Content -->
+            <t t-else="">
+                <!-- Configuration Warning -->
+                <t t-if="state.data.configuration_warning">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-exclamation-triangle fa-2x me-3"/>
+                            <div class="flex-grow-1">
+                                <strong>Setup Required!</strong>
+                                <p class="mb-0" t-esc="state.data.configuration_warning.message"/>
+                            </div>
+                            <button class="btn btn-warning" t-on-click="openConfiguration">
+                                <i class="fa fa-cog"/> <t t-esc="state.data.configuration_warning.action_label"/>
+                            </button>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- KPI Cards -->
+                <div class="row g-3 mb-4">
+                    <t t-foreach="state.data.kpi_cards" t-as="card" t-key="card.id">
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div t-attf-class="card border-{{ card.color }} h-100 {{ card.action ? 'o_clickable' : '' }}" 
+                                 t-if="card.action" t-on-click="() => this.handleCardAction(card.action)">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div t-attf-class="bg-{{ card.color }} text-white rounded p-3 me-3">
+                                            <i t-attf-class="fa {{ card.icon }} fa-2x"/>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h5 class="card-title text-muted mb-1" t-esc="card.title"/>
+                                            <h3 class="mb-0" t-esc="card.value"/>
+                                            <small class="text-muted" t-esc="card.subtitle"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-attf-class="card border-{{ card.color }} h-100" 
+                                 t-else="">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div t-attf-class="bg-{{ card.color }} text-white rounded p-3 me-3">
+                                            <i t-attf-class="fa {{ card.icon }} fa-2x"/>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h5 class="card-title text-muted mb-1" t-esc="card.title"/>
+                                            <h3 class="mb-0" t-esc="card.value"/>
+                                            <small class="text-muted" t-esc="card.subtitle"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="row g-3">
+                    <!-- Active Flocks -->
+                    <div class="col-12 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-users text-primary me-2"/>
+                                    Active Flocks
+                                </h5>
+                                <span class="badge bg-primary" t-esc="state.data.flocks.total + state.data.growths.total"/>
+                            </div>
+                            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                                <!-- Brooder Flocks Section -->
+                                <t t-if="state.data.flocks.list.length > 0">
+                                    <div class="mb-3">
+                                        <h6 class="text-primary mb-2">
+                                            <i class="fa fa-home me-1"/>
+                                            Brooder Flocks (<t t-esc="state.data.flocks.list.length"/>)
+                                        </h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-hover mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Flock</th>
+                                                        <th>Location</th>
+                                                        <th class="text-end">Birds</th>
+                                                        <th class="text-end">Age</th>
+                                                        <th class="text-end">Mortality</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="state.data.flocks.list" t-as="flock" t-key="flock.id">
+                                                        <tr class="o_clickable" t-on-click="() => this.openFlock(flock.id)">
+                                                            <td><strong t-esc="flock.name"/></td>
+                                                            <td><small t-esc="flock.location"/></td>
+                                                            <td class="text-end" t-esc="flock.birds"/>
+                                                            <td class="text-end"><t t-esc="flock.age_days"/>d</td>
+                                                            <td class="text-end">
+                                                                <span t-attf-class="badge bg-{{ flock.mortality_rate &lt; 2 ? 'success' : flock.mortality_rate &lt; 5 ? 'warning' : 'danger' }}">
+                                                                    <t t-esc="flock.mortality_rate"/>%
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <!-- Growth Flocks Section -->
+                                <t t-if="state.data.growths.list.length > 0">
+                                    <div class="mb-3">
+                                        <h6 class="text-success mb-2">
+                                            <i class="fa fa-arrow-up me-1"/>
+                                            Growth Flocks (<t t-esc="state.data.growths.list.length"/>)
+                                        </h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-hover mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Batch</th>
+                                                        <th>Location</th>
+                                                        <th class="text-end">Birds</th>
+                                                        <th class="text-end">Age</th>
+                                                        <th class="text-end">Mortality</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="state.data.growths.list" t-as="growth" t-key="growth.id">
+                                                        <tr class="o_clickable" t-on-click="() => this.openGrowth(growth.id)">
+                                                            <td><strong t-esc="growth.batch_number"/></td>
+                                                            <td><small t-esc="growth.location"/></td>
+                                                            <td class="text-end" t-esc="growth.birds"/>
+                                                            <td class="text-end"><t t-esc="growth.age_days"/>d</td>
+                                                            <td class="text-end">
+                                                                <span t-attf-class="badge bg-{{ growth.mortality_rate &lt; 2 ? 'success' : growth.mortality_rate &lt; 5 ? 'warning' : 'danger' }}">
+                                                                    <t t-esc="growth.mortality_rate"/>%
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <t t-if="state.data.flocks.list.length == 0 &amp;&amp; state.data.growths.list.length == 0">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fa fa-inbox fa-3x mb-3"/>
+                                        <p>No active flocks</p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slaughter Schedule -->
+                    <div class="col-12 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-scissors text-danger me-2"/>
+                                    Slaughter Schedule
+                                </h5>
+                                <span t-attf-class="badge bg-{{ state.data.slaughter_schedule.overdue.length > 0 ? 'danger' : 'success' }}" 
+                                      t-esc="state.data.slaughter_schedule.total"/>
+                            </div>
+                            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                                <t t-if="state.data.slaughter_schedule.total > 0">
+                                    <!-- Upcoming Section -->
+                                    <t t-if="state.data.slaughter_schedule.upcoming.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-success mb-2">
+                                                <i class="fa fa-clock-o me-1"/>
+                                                Upcoming (<t t-esc="state.data.slaughter_schedule.upcoming.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.slaughter_schedule.upcoming" t-as="slaughter" t-key="slaughter.id">
+                                                <div class="mb-2 border-start border-3 border-success ps-3 o_clickable" t-on-click="() => this.openSlaughterRecord(slaughter)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="slaughter.batch_number"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="slaughter.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-map-marker me-1"/>
+                                                                <t t-esc="slaughter.location"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="slaughter.birds"/> birds</span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="slaughter.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Partially Processed Section -->
+                                    <t t-if="state.data.slaughter_schedule.partially_processed.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-warning mb-2">
+                                                <i class="fa fa-hourglass-half me-1"/>
+                                                Partially Processed (<t t-esc="state.data.slaughter_schedule.partially_processed.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.slaughter_schedule.partially_processed" t-as="slaughter" t-key="slaughter.id">
+                                                <div class="mb-2 border-start border-3 border-warning ps-3 o_clickable" t-on-click="() => this.openSlaughterRecord(slaughter)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="slaughter.batch_number"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="slaughter.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-map-marker me-1"/>
+                                                                <t t-esc="slaughter.location"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="slaughter.birds"/> birds</span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="slaughter.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Overdue Section -->
+                                    <t t-if="state.data.slaughter_schedule.overdue.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-danger mb-2">
+                                                <i class="fa fa-exclamation-triangle me-1"/>
+                                                Overdue (<t t-esc="state.data.slaughter_schedule.overdue.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.slaughter_schedule.overdue" t-as="slaughter" t-key="slaughter.id">
+                                                <div class="mb-2 border-start border-3 border-danger ps-3 o_clickable" t-on-click="() => this.openSlaughterRecord(slaughter)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="slaughter.batch_number"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="slaughter.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-map-marker me-1"/>
+                                                                <t t-esc="slaughter.location"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="slaughter.birds"/> birds</span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="slaughter.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fa fa-check-circle fa-3x mb-3 text-success"/>
+                                        <p>No scheduled slaughters</p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Schedule -->
+                    <div class="col-12 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-cutlery text-primary me-2"/>
+                                    Feed Schedule
+                                </h5>
+                                <span t-attf-class="badge bg-{{ state.data.feed_schedule.overdue.length > 0 ? 'danger' : 'success' }}" 
+                                      t-esc="state.data.feed_schedule.total"/>
+                            </div>
+                            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                                <t t-if="state.data.feed_schedule.total > 0">
+                                    <!-- Today's Upcoming Section -->
+                                    <t t-if="state.data.feed_schedule.upcoming_today.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-success mb-2">
+                                                <i class="fa fa-clock-o me-1"/>
+                                                Today (<t t-esc="state.data.feed_schedule.upcoming_today.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.feed_schedule.upcoming_today" t-as="feed" t-key="feed.id">
+                                                <div class="mb-2 border-start border-3 border-success ps-3 o_clickable" t-on-click="() => this.openFeedRecord(feed)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="feed.product"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="feed.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-tag me-1"/>
+                                                                <t t-esc="feed.source"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="feed.quantity"/> <t t-esc="feed.uom"/></span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="feed.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Overdue Section -->
+                                    <t t-if="state.data.feed_schedule.overdue.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-danger mb-2">
+                                                <i class="fa fa-exclamation-triangle me-1"/>
+                                                Overdue (<t t-esc="state.data.feed_schedule.overdue.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.feed_schedule.overdue" t-as="feed" t-key="feed.id">
+                                                <div class="mb-2 border-start border-3 border-danger ps-3 o_clickable" t-on-click="() => this.openFeedRecord(feed)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="feed.product"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="feed.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-tag me-1"/>
+                                                                <t t-esc="feed.source"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="feed.quantity"/> <t t-esc="feed.uom"/></span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="feed.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fa fa-check-circle fa-3x mb-3 text-success"/>
+                                        <p>No pending feed activities</p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vaccine Schedule -->
+                    <div class="col-12 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-medkit text-info me-2"/>
+                                    Vaccine Schedule
+                                </h5>
+                                <span t-attf-class="badge bg-{{ state.data.vaccine_schedule.overdue.length > 0 ? 'danger' : 'success' }}" 
+                                      t-esc="state.data.vaccine_schedule.total"/>
+                            </div>
+                            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                                <t t-if="state.data.vaccine_schedule.total > 0">
+                                    <!-- Today's Upcoming Section -->
+                                    <t t-if="state.data.vaccine_schedule.upcoming_today.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-success mb-2">
+                                                <i class="fa fa-clock-o me-1"/>
+                                                Today (<t t-esc="state.data.vaccine_schedule.upcoming_today.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.vaccine_schedule.upcoming_today" t-as="vaccine" t-key="vaccine.id">
+                                                <div class="mb-2 border-start border-3 border-success ps-3 o_clickable" t-on-click="() => this.openVaccineRecord(vaccine)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="vaccine.product"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="vaccine.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-tag me-1"/>
+                                                                <t t-esc="vaccine.source"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="vaccine.quantity"/> <t t-esc="vaccine.uom"/></span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="vaccine.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    
+                                    <!-- Overdue Section -->
+                                    <t t-if="state.data.vaccine_schedule.overdue.length > 0">
+                                        <div class="mb-3">
+                                            <h6 class="text-danger mb-2">
+                                                <i class="fa fa-exclamation-triangle me-1"/>
+                                                Overdue (<t t-esc="state.data.vaccine_schedule.overdue.length"/>)
+                                            </h6>
+                                            <t t-foreach="state.data.vaccine_schedule.overdue" t-as="vaccine" t-key="vaccine.id">
+                                                <div class="mb-2 border-start border-3 border-danger ps-3 o_clickable" t-on-click="() => this.openVaccineRecord(vaccine)">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div class="flex-grow-1">
+                                                            <strong t-esc="vaccine.product"/>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-calendar me-1"/>
+                                                                <t t-esc="vaccine.date"/>
+                                                            </small>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-tag me-1"/>
+                                                                <t t-esc="vaccine.source"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="text-end">
+                                                            <span class="fw-bold"><t t-esc="vaccine.quantity"/> <t t-esc="vaccine.uom"/></span>
+                                                            <br/>
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-clock-o me-1"/>
+                                                                Age: <t t-esc="vaccine.age"/>d
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fa fa-check-circle fa-3x mb-3 text-success"/>
+                                        <p>No pending vaccine activities</p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

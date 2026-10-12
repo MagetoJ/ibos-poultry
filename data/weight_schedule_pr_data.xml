@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+   
+    <!-- PR Weight Schedule Header -->
+    <record id="weight_schedule_pr" model="weight.schedule">
+        <field name="name">PR Weight Schedule</field>
+        <field name="bird_type">broiler</field>
+        <field name="notes">Ross 308 weight schedule for broiler chickens (61-day cycle)</field>
+    </record>
+
+    <!-- Day 0 -->
+    <record id="weight_schedule_pr_line_day_0" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">0</field>
+        <field name="age_to">0</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 1 -->
+    <record id="weight_schedule_pr_line_day_1" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">1</field>
+        <field name="age_to">1</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 2 -->
+    <record id="weight_schedule_pr_line_day_2" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">2</field>
+        <field name="age_to">2</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 3 -->
+    <record id="weight_schedule_pr_line_day_3" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">3</field>
+        <field name="age_to">3</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 4 -->
+    <record id="weight_schedule_pr_line_day_4" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">4</field>
+        <field name="age_to">4</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 5 -->
+    <record id="weight_schedule_pr_line_day_5" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">5</field>
+        <field name="age_to">5</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 6 -->
+    <record id="weight_schedule_pr_line_day_6" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">6</field>
+        <field name="age_to">6</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 7 -->
+    <record id="weight_schedule_pr_line_day_7" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">7</field>
+        <field name="age_to">7</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 8 -->
+    <record id="weight_schedule_pr_line_day_8" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">8</field>
+        <field name="age_to">8</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 9 -->
+    <record id="weight_schedule_pr_line_day_9" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">9</field>
+        <field name="age_to">9</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 10 -->
+    <record id="weight_schedule_pr_line_day_10" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">10</field>
+        <field name="age_to">10</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 11 -->
+    <record id="weight_schedule_pr_line_day_11" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">11</field>
+        <field name="age_to">11</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 12 -->
+    <record id="weight_schedule_pr_line_day_12" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">12</field>
+        <field name="age_to">12</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 13 -->
+    <record id="weight_schedule_pr_line_day_13" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">13</field>
+        <field name="age_to">13</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 14 -->
+    <record id="weight_schedule_pr_line_day_14" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">14</field>
+        <field name="age_to">14</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 15 -->
+    <record id="weight_schedule_pr_line_day_15" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">15</field>
+        <field name="age_to">15</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 16 -->
+    <record id="weight_schedule_pr_line_day_16" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">16</field>
+        <field name="age_to">16</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 17 -->
+    <record id="weight_schedule_pr_line_day_17" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">17</field>
+        <field name="age_to">17</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 18 -->
+    <record id="weight_schedule_pr_line_day_18" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">18</field>
+        <field name="age_to">18</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 19 -->
+    <record id="weight_schedule_pr_line_day_19" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">19</field>
+        <field name="age_to">19</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 20 -->
+    <record id="weight_schedule_pr_line_day_20" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">20</field>
+        <field name="age_to">20</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 21 -->
+    <record id="weight_schedule_pr_line_day_21" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">21</field>
+        <field name="age_to">21</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 22 -->
+    <record id="weight_schedule_pr_line_day_22" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">22</field>
+        <field name="age_to">22</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 23 -->
+    <record id="weight_schedule_pr_line_day_23" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">23</field>
+        <field name="age_to">23</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 24 -->
+    <record id="weight_schedule_pr_line_day_24" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">24</field>
+        <field name="age_to">24</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 25 -->
+    <record id="weight_schedule_pr_line_day_25" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">25</field>
+        <field name="age_to">25</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 26 -->
+    <record id="weight_schedule_pr_line_day_26" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">26</field>
+        <field name="age_to">26</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 27 -->
+    <record id="weight_schedule_pr_line_day_27" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">27</field>
+        <field name="age_to">27</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 28 -->
+    <record id="weight_schedule_pr_line_day_28" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">28</field>
+        <field name="age_to">28</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 29 -->
+    <record id="weight_schedule_pr_line_day_29" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">29</field>
+        <field name="age_to">29</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 30 -->
+    <record id="weight_schedule_pr_line_day_30" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">30</field>
+        <field name="age_to">30</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 31 -->
+    <record id="weight_schedule_pr_line_day_31" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">31</field>
+        <field name="age_to">31</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 32 -->
+    <record id="weight_schedule_pr_line_day_32" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">32</field>
+        <field name="age_to">32</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 33 -->
+    <record id="weight_schedule_pr_line_day_33" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">33</field>
+        <field name="age_to">33</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 34 -->
+    <record id="weight_schedule_pr_line_day_34" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">34</field>
+        <field name="age_to">34</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 35 -->
+    <record id="weight_schedule_pr_line_day_35" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">35</field>
+        <field name="age_to">35</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 36 -->
+    <record id="weight_schedule_pr_line_day_36" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">36</field>
+        <field name="age_to">36</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 37 -->
+    <record id="weight_schedule_pr_line_day_37" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">37</field>
+        <field name="age_to">37</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 38 -->
+    <record id="weight_schedule_pr_line_day_38" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">38</field>
+        <field name="age_to">38</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 39 -->
+    <record id="weight_schedule_pr_line_day_39" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">39</field>
+        <field name="age_to">39</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 40 -->
+    <record id="weight_schedule_pr_line_day_40" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">40</field>
+        <field name="age_to">40</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 41 -->
+    <record id="weight_schedule_pr_line_day_41" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">41</field>
+        <field name="age_to">41</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 42 -->
+    <record id="weight_schedule_pr_line_day_42" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">42</field>
+        <field name="age_to">42</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 43 -->
+    <record id="weight_schedule_pr_line_day_43" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">43</field>
+        <field name="age_to">43</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 44 -->
+    <record id="weight_schedule_pr_line_day_44" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">44</field>
+        <field name="age_to">44</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 45 -->
+    <record id="weight_schedule_pr_line_day_45" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">45</field>
+        <field name="age_to">45</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 46 -->
+    <record id="weight_schedule_pr_line_day_46" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">46</field>
+        <field name="age_to">46</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 47 -->
+    <record id="weight_schedule_pr_line_day_47" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">47</field>
+        <field name="age_to">47</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 48 -->
+    <record id="weight_schedule_pr_line_day_48" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">48</field>
+        <field name="age_to">48</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 49 -->
+    <record id="weight_schedule_pr_line_day_49" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">49</field>
+        <field name="age_to">49</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 50 -->
+    <record id="weight_schedule_pr_line_day_50" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">50</field>
+        <field name="age_to">50</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 51 -->
+    <record id="weight_schedule_pr_line_day_51" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">51</field>
+        <field name="age_to">51</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 52 -->
+    <record id="weight_schedule_pr_line_day_52" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">52</field>
+        <field name="age_to">52</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 53 -->
+    <record id="weight_schedule_pr_line_day_53" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">53</field>
+        <field name="age_to">53</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 54 -->
+    <record id="weight_schedule_pr_line_day_54" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">54</field>
+        <field name="age_to">54</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 55 -->
+    <record id="weight_schedule_pr_line_day_55" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">55</field>
+        <field name="age_to">55</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 56 -->
+    <record id="weight_schedule_pr_line_day_56" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">56</field>
+        <field name="age_to">56</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 57 -->
+    <record id="weight_schedule_pr_line_day_57" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">57</field>
+        <field name="age_to">57</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 58 -->
+    <record id="weight_schedule_pr_line_day_58" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">58</field>
+        <field name="age_to">58</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 59 -->
+    <record id="weight_schedule_pr_line_day_59" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">59</field>
+        <field name="age_to">59</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 60 -->
+    <record id="weight_schedule_pr_line_day_60" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">60</field>
+        <field name="age_to">60</field>
+        <field name="expected_weight">0</field>
+    </record>
+
+    <!-- Day 61 -->
+    <record id="weight_schedule_pr_line_day_61" model="weight.schedule.line">
+        <field name="schedule_id" ref="weight_schedule_pr"/>
+        <field name="age_from">61</field>
+        <field name="age_to">61</field>
+        <field name="expected_weight">0</field>
+    </record>
+</odoo>

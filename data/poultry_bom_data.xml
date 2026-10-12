@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Products and Bills of Materials are managed by users in the system -->
+    <!-- No default poultry products are created -->
+</odoo>
